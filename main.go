@@ -48,12 +48,14 @@ func main() {
 
 	syncPeriodD := time.Duration(int64(time.Second) * syncPeriod)
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
-		Scheme:             scheme,
-		MetricsBindAddress: metricsAddr,
-		LeaderElection:     enableLeaderElection,
-		Port:               9443,
-		SyncPeriod:         &syncPeriodD,
-		Namespace:          namespace,
+		Scheme:                  scheme,
+		MetricsBindAddress:      metricsAddr,
+		LeaderElection:          enableLeaderElection,
+		Port:                    9443,
+		SyncPeriod:              &syncPeriodD,
+		Namespace:               namespace,
+		LeaderElectionID:        "d227e0e1.kube-app-manager.io",
+		LeaderElectionNamespace: namespace,
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start kube-app-manager")
